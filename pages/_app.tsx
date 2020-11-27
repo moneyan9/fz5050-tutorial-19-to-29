@@ -5,6 +5,11 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../theme'; //ここにグローバルCSSを定義
 
+import { SWRConfig } from 'swr';//SWRのグローバルコンフィグ用
+import axios from 'axios';
+
+import Nav from '../components/Nav'; //App Bar用
+
 export default function MyApp(props: AppProps) {
     const { Component, pageProps } = props;
 
@@ -25,7 +30,23 @@ export default function MyApp(props: AppProps) {
             <ThemeProvider theme={theme}>
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline />
-                <Component {...pageProps} />
+
+                {/* App Barを配置 */}
+                <Nav />
+                <SWRConfig
+                    value={
+                        {
+                            dedupingInterval: 5000,
+                            fetcher: (url: string) => axios(url).then(r => r.data)
+                        }
+                    }
+                >
+
+                    <Component {...pageProps} />
+
+                </SWRConfig>
+
+
             </ThemeProvider>
         </React.Fragment>
     );
