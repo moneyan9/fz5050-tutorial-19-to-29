@@ -6,7 +6,6 @@ import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import cookie from 'cookie';
 
-
 export default async function login(req: NextApiRequest, res: NextApiResponse) {
 
     const db = await open(
@@ -36,7 +35,7 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
                         myPersonName: person.name,
                         myPersonEmail: person.email,
                     };
- 
+
                     //JWTを作成する（今回のsecretは適当にオンラインのサイトで生成したGUID/UUIDを設定）
                     const jwt = sign(claims, '704d410c-e2c7-4de8-af06-06994e445d8e', { expiresIn: '1h' });
 
