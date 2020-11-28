@@ -9,7 +9,8 @@ export const authenticated = (fn: NextApiHandler) => async (
     res: NextApiResponse
 ) => {
     //ハンドラ内でJWT検証
-    verify(req.headers.authorization!,
+    //verify(req.headers.authorization!,
+    verify(req.cookies.auth!,
         '704d410c-e2c7-4de8-af06-06994e445d8e',
         async function (err, decoded) {
 
